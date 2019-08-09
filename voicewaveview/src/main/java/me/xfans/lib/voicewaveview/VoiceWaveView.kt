@@ -34,6 +34,11 @@ class VoiceWaveView @JvmOverloads constructor(
      * 线宽
      */
     var lineWidth: Float = 20f
+
+    /**
+     * 动画持续时间
+     */
+    var duration: Long = 200
     /**
      * 线颜色
      */
@@ -71,6 +76,7 @@ class VoiceWaveView @JvmOverloads constructor(
 
             lineWidth = typedArray.getFloat(R.styleable.VoiceWaveView_lineWidth, 20f)
             lineSpace = typedArray.getFloat(R.styleable.VoiceWaveView_lineSpace, 10f)
+            duration = typedArray.getInt(R.styleable.VoiceWaveView_duration, 200).toLong()
             showGravity = typedArray.getInt(R.styleable.VoiceWaveView_android_gravity, Gravity.LEFT or Gravity.BOTTOM)
             lineColor = typedArray.getInt(R.styleable.VoiceWaveView_lineColor, Color.BLUE)
             val mode = typedArray.getInt(R.styleable.VoiceWaveView_waveMode, 0)
@@ -125,7 +131,7 @@ class VoiceWaveView @JvmOverloads constructor(
         }
         isStart = true
         if (waveMode == WaveMode.UP_DOWN) {
-            valueAnimator.duration = 500
+            valueAnimator.duration = duration
             valueAnimator.repeatMode = ValueAnimator.REVERSE
             valueAnimator.repeatCount = ValueAnimator.INFINITE
             valueAnimator.addUpdateListener {
@@ -139,7 +145,7 @@ class VoiceWaveView @JvmOverloads constructor(
                     val last = bodyWaveList.pollLast()
                     bodyWaveList.addFirst(last)
                     invalidate()
-                    valHandler.postDelayed(this, 100);
+                    valHandler.postDelayed(this, duration);
                 }
             }
             valHandler.post(runnable)

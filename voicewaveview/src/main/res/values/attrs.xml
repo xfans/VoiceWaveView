@@ -3,6 +3,7 @@
     <declare-styleable name="VoiceWaveView">
         <attr name="lineSpace" format="float"/>
         <attr name="lineWidth" format="float"/>
+        <attr name="duration" format="integer"/>
 
         <attr name="waveMode" format="enum">
             <enum name="up_down" value="0"/>

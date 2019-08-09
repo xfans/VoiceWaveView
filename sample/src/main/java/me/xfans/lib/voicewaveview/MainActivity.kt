@@ -23,8 +23,8 @@ class MainActivity : AppCompatActivity() {
         voiceWaveView5 = findViewById<VoiceWaveView>(R.id.voiceWaveView5)
 
         voiceWaveView0?.apply {
-
-            addHeader(224)
+            duration = 150
+            addHeader(4)
             addHeader(14)
             addBody(27)
             addBody(17)
@@ -46,6 +46,7 @@ class MainActivity : AppCompatActivity() {
             waveMode = WaveMode.UP_DOWN
             lineWidth = 30f
             lineSpace = 15f
+            duration = 500
             lineColor = Color.parseColor("#F56B00")
             addHeader(4)
             addHeader(14)
