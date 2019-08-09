@@ -11,78 +11,120 @@ import android.os.Handler
 import android.view.Gravity
 import java.util.*
 
-
-class VoiceWaveView : View {
+class VoiceWaveView @JvmOverloads constructor(
+    context: Context,
+    attrs: AttributeSet? = null,
+    defStyle: Int = 0
+) : View(context, attrs, defStyle) {
 
     var bodyWaveList = LinkedList<Int>()
+        private set
     var headerWaveList = LinkedList<Int>()
+        private set
     var footerWaveList = LinkedList<Int>()
+        private set
 
-    var waveList = LinkedList<Int>()
-
-    var lineSpace: Float = 10f
-    var lineWidth: Float = 20f
-    var paintLine: Paint? = null
-    var valueAnimator = ValueAnimator.ofFloat(0f, 1f)
-    var valueAnimatorOffset: Float = 1f
-    var valHandler = Handler()
+    private var waveList = LinkedList<Int>()
 
     /**
-     * 跳动模式1,2
+     * 线间距
      */
-    var mode: Int = 1
+    var lineSpace: Float = 10f
+    /**
+     * 线宽
+     */
+    var lineWidth: Float = 20f
+    /**
+     * 线颜色
+     */
+    var lineColor: Int = Color.BLUE
+    var paintLine: Paint? = null
+
+    private var valueAnimator = ValueAnimator.ofFloat(0f, 1f)
+
+    private var valueAnimatorOffset: Float = 1f
+
+    private var valHandler = Handler()
+
+    var isStart: Boolean = false
+        private set
+
+    /**
+     * 跳动模式
+     */
+    var waveMode: WaveMode = WaveMode.UP_DOWN
 
     /**
      * 显示位置
      */
-    var gravity: Int = Gravity.CENTER_HORIZONTAL or Gravity.CENTER_VERTICAL
+    var showGravity: Int = Gravity.LEFT or Gravity.BOTTOM
 
-    var runnable: Runnable? = null
+    private var runnable: Runnable? = null
 
-    constructor(context: Context?) : super(context)
-    constructor(context: Context?, attrs: AttributeSet?) : super(context, attrs)
-    constructor(context: Context?, attrs: AttributeSet?, defStyleAttr: Int) : super(context, attrs, defStyleAttr)
 
     init {
+        attrs?.let {
+            val typedArray = context.theme.obtainStyledAttributes(
+                attrs,
+                R.styleable.VoiceWaveView, 0, 0
+            )
+
+            lineWidth = typedArray.getFloat(R.styleable.VoiceWaveView_lineWidth, 20f)
+            lineSpace = typedArray.getFloat(R.styleable.VoiceWaveView_lineSpace, 10f)
+            showGravity = typedArray.getInt(R.styleable.VoiceWaveView_android_gravity, Gravity.LEFT or Gravity.BOTTOM)
+            lineColor = typedArray.getInt(R.styleable.VoiceWaveView_lineColor, Color.BLUE)
+            val mode = typedArray.getInt(R.styleable.VoiceWaveView_waveMode, 0)
+            when (mode) {
+                0 -> waveMode = WaveMode.UP_DOWN
+                1 -> waveMode = WaveMode.LEFT_RIGHT
+            }
+            typedArray.recycle()
+        }
+
         paintLine = Paint()
-        paintLine?.setStrokeWidth(lineWidth)
-        paintLine?.setAntiAlias(true)
-        paintLine?.setColor(Color.parseColor("#EFF1F4"))
+        paintLine?.isAntiAlias = true
         paintLine?.strokeCap = Paint.Cap.ROUND
-        bodyWaveList.add(8)
-        bodyWaveList.add(14)
-        bodyWaveList.add(27)
-        bodyWaveList.add(17)
-        bodyWaveList.add(38)
-        bodyWaveList.add(91)
-        bodyWaveList.add(38)
-        bodyWaveList.add(24)
-        bodyWaveList.add(8)
-        bodyWaveList.add(60)
-        bodyWaveList.add(38)
-        bodyWaveList.add(14)
-        bodyWaveList.add(8)
-        bodyWaveList.add(8)
-
-        addHeader()
-        addFooter()
-        start()
     }
 
-    fun addHeader() {
-        headerWaveList.add(8)
-        headerWaveList.add(14)
+    /**
+     * 线的高度 0,100 百分数
+     */
+    fun addBody(num: Int) {
+        checkNum(num)
+        bodyWaveList.add(num)
     }
 
-    fun addFooter() {
-        footerWaveList.add(8)
-        footerWaveList.add(8)
-        footerWaveList.add(8)
+    /**
+     * 头部线的高度 0,100 百分数
+     */
+    fun addHeader(num: Int) {
+        checkNum(num)
+        headerWaveList.add(num)
     }
 
+    /**
+     * 尾部线的高度 0,100 百分数
+     */
+    fun addFooter(num: Int) {
+        checkNum(num)
+        footerWaveList.add(num)
+    }
+
+    private fun checkNum(num: Int) {
+        if (num < 0 || num > 100) {
+            throw Exception("num must between 0 and 100")
+        }
+    }
+
+    /**
+     * 开始
+     */
     fun start() {
-
-        if (mode == 1) {
+        if (isStart) {
+            return
+        }
+        isStart = true
+        if (waveMode == WaveMode.UP_DOWN) {
             valueAnimator.duration = 500
             valueAnimator.repeatMode = ValueAnimator.REVERSE
             valueAnimator.repeatCount = ValueAnimator.INFINITE
@@ -91,7 +133,7 @@ class VoiceWaveView : View {
                 invalidate()
             }
             valueAnimator.start()
-        } else if (mode == 2) {
+        } else if (waveMode == WaveMode.LEFT_RIGHT) {
             runnable = object : Runnable {
                 override fun run() {
                     val last = bodyWaveList.pollLast()
@@ -101,7 +143,7 @@ class VoiceWaveView : View {
                 }
             }
             valHandler.post(runnable)
-        } else if (mode == 3) {
+        } else {
 
         }
 
@@ -114,6 +156,9 @@ class VoiceWaveView : View {
         waveList.addAll(headerWaveList)
         waveList.addAll(bodyWaveList)
         waveList.addAll(footerWaveList)
+
+        paintLine?.strokeWidth = lineWidth
+        paintLine?.color = lineColor
 
         for (i in waveList.indices) {
             var startX = 0f
@@ -128,7 +173,7 @@ class VoiceWaveView : View {
 
             val lineHeight = waveList[i] / 100.0 * measuredHeight * offset
 
-            val absoluteGravity = Gravity.getAbsoluteGravity(gravity, layoutDirection);
+            val absoluteGravity = Gravity.getAbsoluteGravity(showGravity, layoutDirection);
 
             when (absoluteGravity and Gravity.HORIZONTAL_GRAVITY_MASK) {
                 Gravity.CENTER_HORIZONTAL -> {
@@ -160,7 +205,7 @@ class VoiceWaveView : View {
             }
 
 
-            when (gravity and Gravity.VERTICAL_GRAVITY_MASK) {
+            when (showGravity and Gravity.VERTICAL_GRAVITY_MASK) {
                 Gravity.TOP -> {
                     startY = 0f
                     endY = lineHeight.toFloat()
@@ -189,13 +234,13 @@ class VoiceWaveView : View {
         }
     }
 
-    fun log() {
-
-    }
-
+    /**
+     * 停止
+     */
     fun stop() {
+        isStart = false
         if (runnable != null) {
-            handler.removeCallbacks(runnable)
+            valHandler.removeCallbacks(runnable)
         }
         valueAnimator.cancel()
     }

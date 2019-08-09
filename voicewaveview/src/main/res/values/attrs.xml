@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="VoiceWaveView">
+        <attr name="lineSpace" format="float"/>
+        <attr name="lineWidth" format="float"/>
+
+        <attr name="waveMode" format="enum">
+            <enum name="up_down" value="0"/>
+            <enum name="left_right" value="1"/>
+        </attr>
+        <attr name="lineColor" format="color"/>
+        <attr name="android:gravity"/>
+    </declare-styleable>
+</resources>
