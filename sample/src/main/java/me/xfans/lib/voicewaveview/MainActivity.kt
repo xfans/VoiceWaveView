@@ -24,6 +24,10 @@ class MainActivity : AppCompatActivity() {
 
         voiceWaveView0?.apply {
             duration = 150
+            addHeader(2)
+            addHeader(2)
+            addHeader(2)
+            addHeader(2)
             addHeader(4)
             addHeader(14)
             addBody(27)
@@ -38,6 +42,9 @@ class MainActivity : AppCompatActivity() {
             addBody(14)
             addBody(8)
             addFooter(4)
+            addFooter(2)
+            addFooter(2)
+            addFooter(2)
             addFooter(2)
             start()
         }
@@ -103,7 +110,7 @@ class MainActivity : AppCompatActivity() {
             start()
         }
         voiceWaveView4?.apply {
-
+            lineColor = Color.GREEN
             addHeader(14)
             addBody(27)
             addBody(17)
@@ -121,7 +128,13 @@ class MainActivity : AppCompatActivity() {
             start()
         }
         voiceWaveView5?.apply {
-
+            lineColor = Color.YELLOW
+            addHeader(3)
+            addHeader(3)
+            addHeader(3)
+            addHeader(3)
+            addHeader(3)
+            addHeader(4)
             addHeader(14)
             addBody(27)
             addBody(17)
@@ -135,7 +148,10 @@ class MainActivity : AppCompatActivity() {
             addBody(14)
             addBody(8)
             addFooter(4)
-            addFooter(2)
+            addFooter(3)
+            addFooter(3)
+            addFooter(3)
+            addFooter(3)
             start()
         }
     }
