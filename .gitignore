@@ -1,0 +1,47 @@
+# Eclipse
+.project
+.classpath
+.settings
+.checkstyle
+
+# IntelliJ IDEA
+.idea
+*.iml
+
+*.ipr
+*.iws
+classes
+gen-external-apklibs
+*.class
+out/
+
+# Gradle
+.gradle
+/.idea/workspace.xml
+/.idea/libraries/*
+build
+*.apk
+manifest-merger-*-release-report.txt
+proguard-error.txt
+
+
+# Maven
+target
+release.properties
+pom.xml.*
+
+# Ant
+bin
+gen
+build.xml
+ant.properties
+local.properties
+proguard.cfg
+proguard-project.txt
+/local.properties
+rv
+
+# Other
+tmp
+.DS_Store
+keystore
