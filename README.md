@@ -2,9 +2,7 @@
 a voice wave view library
 
 ## Screenshot
-![Screenshot1](pic/1.gif)
-
-![Screenshot2](pic/2.gif)
+![Screenshot2](pic/2.gif)![Screenshot1](pic/1.gif)
 
 ## Dependencies
 
