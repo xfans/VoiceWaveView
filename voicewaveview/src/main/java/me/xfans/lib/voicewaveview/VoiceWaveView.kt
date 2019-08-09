@@ -241,7 +241,7 @@ class VoiceWaveView @JvmOverloads constructor(
     }
 
     /**
-     * 停止
+     * 停止 onDestroy call
      */
     fun stop() {
         isStart = false
