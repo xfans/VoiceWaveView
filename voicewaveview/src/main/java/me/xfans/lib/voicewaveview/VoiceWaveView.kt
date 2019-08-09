@@ -28,11 +28,11 @@ class VoiceWaveView @JvmOverloads constructor(
     private var waveList = LinkedList<Int>()
 
     /**
-     * 线间距
+     * 线间距 px
      */
     var lineSpace: Float = 10f
     /**
-     * 线宽
+     * 线宽 px
      */
     var lineWidth: Float = 20f
 
@@ -75,8 +75,8 @@ class VoiceWaveView @JvmOverloads constructor(
                 R.styleable.VoiceWaveView, 0, 0
             )
 
-            lineWidth = typedArray.getFloat(R.styleable.VoiceWaveView_lineWidth, 20f)
-            lineSpace = typedArray.getFloat(R.styleable.VoiceWaveView_lineSpace, 10f)
+            lineWidth = typedArray.getDimension(R.styleable.VoiceWaveView_lineWidth, 20f)
+            lineSpace = typedArray.getDimension(R.styleable.VoiceWaveView_lineSpace, 10f)
             duration = typedArray.getInt(R.styleable.VoiceWaveView_duration, 200).toLong()
             showGravity = typedArray.getInt(R.styleable.VoiceWaveView_android_gravity, Gravity.LEFT or Gravity.BOTTOM)
             lineColor = typedArray.getInt(R.styleable.VoiceWaveView_lineColor, Color.BLUE)

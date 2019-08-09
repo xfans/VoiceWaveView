@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
     <declare-styleable name="VoiceWaveView">
-        <attr name="lineSpace" format="float"/>
-        <attr name="lineWidth" format="float"/>
+        <attr name="lineSpace" format="dimension"/>
+        <attr name="lineWidth" format="dimension"/>
         <attr name="duration" format="integer"/>
 
         <attr name="waveMode" format="enum">
