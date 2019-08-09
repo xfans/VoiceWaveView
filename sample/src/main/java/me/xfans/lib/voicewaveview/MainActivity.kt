@@ -156,8 +156,8 @@ class MainActivity : AppCompatActivity() {
         }
     }
 
-    override fun onStop() {
-        super.onStop()
+    override fun onDestroy() {
+        super.onDestroy()
         voiceWaveView0?.stop()
         voiceWaveView1?.stop()
         voiceWaveView2?.stop()
