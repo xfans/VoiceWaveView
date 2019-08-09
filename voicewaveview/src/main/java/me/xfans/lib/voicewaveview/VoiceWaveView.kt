@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.view.View
 import android.animation.ValueAnimator
 import android.os.Handler
+import android.os.Parcelable
 import android.view.Gravity
 import java.util.*
 
@@ -249,5 +250,15 @@ class VoiceWaveView @JvmOverloads constructor(
             valHandler.removeCallbacks(runnable)
         }
         valueAnimator.cancel()
+    }
+
+    override fun onSaveInstanceState(): Parcelable {
+        //TODO onSaveInstanceState
+        return super.onSaveInstanceState()
+    }
+
+    override fun onRestoreInstanceState(state: Parcelable?) {
+        //TODO onRestoreInstanceState
+        super.onRestoreInstanceState(state)
     }
 }
