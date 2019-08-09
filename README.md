@@ -6,6 +6,20 @@ a voice wave view library
 
 ![Screenshot2](pic/2.gif)
 
+## Dependencies
+
+```
+allprojects {
+		repositories {
+			...
+			maven { url 'https://jitpack.io' }
+		}
+	}
+```
+
+```
+implementation 'com.github.xfans:VoiceWaveView:1.0.0'
+```
 ## Use
 
 属性
