@@ -1,5 +1,6 @@
 # VoiceWaveView
 a voice wave view library
+一个音频条形图的view
 
 ## Screenshot
 ![Screenshot2](pic/2.gif)![Screenshot1](pic/1.gif)
@@ -22,9 +23,9 @@ implementation 'com.github.xfans:VoiceWaveView:1.0.1'
 
 属性
 
- * `addHeader` - 添加图头的线(头尾的线不变化)
- * `addFooter`  - 添加图尾的线(头尾的线不变化)
- * `addBody` - 添加图线
+ * `addHeader` - 添加图头的线(头尾的线不变化),百分数1-100
+ * `addFooter`  - 添加图尾的线(头尾的线不变化)百分数1-100
+ * `addBody` - 添加图上的线,百分数1-100
  * `lineSpace` - 线间距
  * `lineWidth` - 线宽
  * `duration` - 动画持续时间
