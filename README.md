@@ -23,8 +23,8 @@ implementation 'com.github.xfans:VoiceWaveView:1.0.1'
 
 属性
 
- * `addHeader` - 添加图头的线(头尾的线不变化),百分数1-100
- * `addFooter`  - 添加图尾的线(头尾的线不变化)百分数1-100
+ * `addHeader` - 添加图头的线(头尾的线不变化),百分数1-100，实际高度等于布局的`高度*百分数`
+ * `addFooter`  - 添加图尾的线(头尾的线不变化)百分数1-100，实际高度等于布局的`高度*百分数`
  * `addBody` - 添加图上的线,百分数1-100
  * `lineSpace` - 线间距
  * `lineWidth` - 线宽
