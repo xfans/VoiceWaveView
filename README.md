@@ -1,9 +1,9 @@
 # VoiceWaveView
 a voice wave view library
-一个音频条形图的view
+一个音频条形图的view,支持柱状音频，折线音频的样式
 
 ## Screenshot
-![Screenshot2](pic/2.gif)![Screenshot1](pic/1.gif)
+![Screenshot2](pic/3.gif)![Screenshot1](pic/1.gif)
 
 ## Dependencies
 
@@ -30,6 +30,7 @@ implementation 'com.github.xfans:VoiceWaveView:1.0.1'
  * `lineWidth` - 线宽
  * `duration` - 动画持续时间
  * `waveMode` - 线条动画模式，`up_down`上线变化，`left_right`从左往右移动
+ * `lineType` - 线条样式，`line_graph`折线样式，`bar_chart`柱状样式
  * `lineColor` - 线条颜色
  * `gravity` - 图的位置，`center`，`bottom`等，同androd gravity
 

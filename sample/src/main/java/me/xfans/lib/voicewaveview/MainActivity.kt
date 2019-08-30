@@ -73,7 +73,10 @@ class MainActivity : AppCompatActivity() {
             start()
         }
         voiceWaveView2?.apply {
-
+            lineType = LineType.LINE_GRAPH
+            lineWidth = 2f
+            lineSpace = 50f
+            duration = 200
             addBody(14)
             addBody(27)
             addBody(17)

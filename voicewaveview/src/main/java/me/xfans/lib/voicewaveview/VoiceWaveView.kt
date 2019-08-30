@@ -7,6 +7,7 @@ import android.graphics.Paint
 import android.util.AttributeSet
 import android.view.View
 import android.animation.ValueAnimator
+import android.graphics.Path
 import android.os.Handler
 import android.os.Parcelable
 import android.view.Gravity
@@ -45,13 +46,16 @@ class VoiceWaveView @JvmOverloads constructor(
      */
     var lineColor: Int = Color.BLUE
     var paintLine: Paint? = null
+    var paintPathLine: Paint? = null
 
     private var valueAnimator = ValueAnimator.ofFloat(0f, 1f)
 
     private var valueAnimatorOffset: Float = 1f
 
     private var valHandler = Handler()
+    val linePath = Path()
 
+    @Volatile
     var isStart: Boolean = false
         private set
 
@@ -59,6 +63,11 @@ class VoiceWaveView @JvmOverloads constructor(
      * 跳动模式
      */
     var waveMode: WaveMode = WaveMode.UP_DOWN
+
+    /**
+     * 线条样式
+     */
+    var lineType: LineType = LineType.BAR_CHART
 
     /**
      * 显示位置
@@ -85,12 +94,23 @@ class VoiceWaveView @JvmOverloads constructor(
                 0 -> waveMode = WaveMode.UP_DOWN
                 1 -> waveMode = WaveMode.LEFT_RIGHT
             }
+
+            val lType = typedArray.getInt(R.styleable.VoiceWaveView_lineType, 0)
+            when (lType) {
+                0 -> lineType = LineType.BAR_CHART
+                1 -> lineType = LineType.LINE_GRAPH
+            }
+
             typedArray.recycle()
         }
 
         paintLine = Paint()
         paintLine?.isAntiAlias = true
         paintLine?.strokeCap = Paint.Cap.ROUND
+
+        paintPathLine = Paint()
+        paintPathLine?.isAntiAlias = true
+        paintPathLine?.setStyle(Paint.Style.STROKE);
     }
 
     /**
@@ -153,7 +173,6 @@ class VoiceWaveView @JvmOverloads constructor(
         } else {
 
         }
-
     }
 
     override fun onDraw(canvas: Canvas?) {
@@ -164,9 +183,12 @@ class VoiceWaveView @JvmOverloads constructor(
         waveList.addAll(bodyWaveList)
         waveList.addAll(footerWaveList)
 
+        linePath.reset()
+        paintPathLine?.strokeWidth = lineWidth
+        paintPathLine?.color = lineColor
+
         paintLine?.strokeWidth = lineWidth
         paintLine?.color = lineColor
-
         for (i in waveList.indices) {
             var startX = 0f
             var startY = 0f
@@ -229,15 +251,29 @@ class VoiceWaveView @JvmOverloads constructor(
                 }
 
             }
-
-            canvas?.drawLine(
-                startX,
-                startY,
-                endX,
-                endY,
-                paintLine
-            )
-
+            if (lineType == LineType.BAR_CHART) {
+                canvas?.drawLine(
+                    startX,
+                    startY,
+                    endX,
+                    endY,
+                    paintLine
+                )
+            }
+            if (lineType == LineType.LINE_GRAPH) {
+                if (i == 0) {
+                    linePath.moveTo(startX, startY)
+                    val pathEndX = endX + (lineWidth / 2) + (lineSpace / 2)
+                    linePath.lineTo(pathEndX, endY)
+                } else {
+                    linePath.lineTo(startX, startY)
+                    val pathEndX = endX + (lineWidth / 2) + (lineSpace / 2)
+                    linePath.lineTo(pathEndX, endY)
+                }
+            }
+        }
+        if (lineType == LineType.LINE_GRAPH) {
+            canvas?.drawPath(linePath, paintPathLine)
         }
     }
 

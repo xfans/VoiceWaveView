@@ -29,7 +29,7 @@
                 android:layout_height="150dp"
                 app:lineColor="#3D9673"
                 app:waveMode="left_right"
-                android:gravity="bottom|center_horizontal"
+                android:gravity="center_vertical|center_horizontal"
         />
         <me.xfans.lib.voicewaveview.VoiceWaveView
                 android:id="@+id/voiceWaveView3"

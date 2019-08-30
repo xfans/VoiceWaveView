@@ -9,6 +9,12 @@
             <enum name="up_down" value="0"/>
             <enum name="left_right" value="1"/>
         </attr>
+
+        <attr name="lineType" format="enum">
+            <enum name="bar_chart" value="0"/>
+            <enum name="line_graph" value="1"/>
+        </attr>
+
         <attr name="lineColor" format="color"/>
         <attr name="android:gravity"/>
     </declare-styleable>
