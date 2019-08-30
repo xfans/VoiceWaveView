@@ -17,7 +17,7 @@ allprojects {
 ```
 
 ```
-implementation 'com.github.xfans:VoiceWaveView:1.0.1'
+implementation 'com.github.xfans:VoiceWaveView:1.0.2'
 ```
 ## Use
 
