@@ -1,7 +1,7 @@
 # VoiceWaveView
 [![](https://jitpack.io/v/xfans/VoiceWaveView.svg)](https://jitpack.io/#xfans/VoiceWaveView)
 a voice wave view library
-一个音频条形图的view,支持柱状音频，折线音频的样式
+一个音频条形图的view,支持柱状音频，折线音频,音乐跳动,音频跳动的样式
 
 ## Screenshot
 ![Screenshot2](pic/3.gif)![Screenshot1](pic/1.gif)
